@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget App</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <a href="budgetData.html">Get List of Budget data</a>
+      <div class="container">
+        <div class="sub-container">
+          <!-- Expenditure -->
+          <div class="user-amount-container">
+            <h3>Expenses</h3>
+            <p class="hide error" id="product-title-error">Values cannot be empty</p>
+            <input type="text" class="product-title" id="product-title" placeholder="Enter Title of Product" />
+            <input type="number" id="user-amount" placeholder="Enter Cost of Product" />
+            <div class="form-row">
+              <label for="category">Category :</label>
+              <select name="category" id="category">
+                <option value=""></option>
+                <option value="foods">Foods</option>
+                <option value="houseing">Housing</option>
+                <option value="transports">Transport</option>
+                <option value="healths">Health</option>
+                <option value="insurances">Insurance</option>
+                <option value="child">Child</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+            <input type="date" id="adding-date" />
+            <button class="submit" id="add-amount">Add Amount</button>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div class="output-container">
+          <!-- add a Expenses List month  -->
+          <div class="output-item">
+            <p>Total Expenses</p>
+            <span id="expenditure-value">0</span>
+          </div>
+        </div>
+      </div>
+      <!-- List -->
+      <div class="list">
+        <h3>Expenses List</h3>
+        <input type="month" id="filter-month" />
+        <div class="list-container" id="list"></div>
+      </div>
+    </div>
+    <!-- Script -->
+    <script src="script.js"></script>
+    <script>
+      // Get today's date in YYYY-MM-DD format
+      const today = new Date();
+
+      document.getElementById("adding-date").value = today.toISOString().split("T")[0];
+      const yearMonth = today.toISOString().split("T")[0].slice(0, 7);
+      document.getElementById("filter-month").value = yearMonth;
+    </script>
+  </body>
+</html>

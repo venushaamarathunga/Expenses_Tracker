@@ -1,0 +1,19 @@
+{
+  "name": "electron_app",
+  "version": "1.0.0",
+  "description": "Expenses Tracker",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^35.1.4",
+    "electron-reload": "^2.0.0-alpha.1"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
+  }
+}
