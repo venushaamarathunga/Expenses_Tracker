@@ -1,7 +1,7 @@
 clone to the repo
 
-npm install 
+npm install
 **npm install**
 
-run project 
-npx electron .
+run project
+**npx electron .**
