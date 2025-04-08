@@ -12,53 +12,61 @@
   </head>
   <body>
     <div class="wrapper">
-      <a href="budgetData.html">Get List of Budget data</a>
-      <div class="container">
-        <div class="sub-container">
-          <!-- Expenditure -->
-          <div class="user-amount-container">
-            <h3>Expenses</h3>
-            <p class="hide error" id="product-title-error">Values cannot be empty</p>
-            <input type="text" class="product-title" id="product-title" placeholder="Enter Title of Product" />
-            <input type="number" id="user-amount" placeholder="Enter Cost of Product" />
-            <div class="form-row">
-              <label for="category">Category :</label>
-              <select name="category" id="category">
-                <option value=""></option>
-                <option value="Foods">Foods</option>
-                <option value="Housing">Housing</option>
-                <option value="Transports">Transports</option>
-                <option value="Healths">Healths</option>
-                <option value="Insurances">Insurances</option>
-                <option value="Child">Child</option>
-                <option value="Others">Others</option>
-              </select>
+      <a style="margin-bottom: 2em; display: inline-block" href="budgetData.html">Get List of Budget data</a>
+      <div>
+        <div class="container">
+          <div class="sub-container">
+            <!-- Expenditure -->
+            <div class="user-amount-container">
+              <h3>Expenses</h3>
+              <p class="hide error" id="product-title-error">Values cannot be empty</p>
+              <input type="text" class="product-title" id="product-title" placeholder="Enter Title of Product" />
+              <input type="number" id="user-amount" placeholder="Enter Cost of Product" />
+              <div class="form-row">
+                <label for="category">Category :</label>
+                <select name="category" id="category">
+                  <option value=""></option>
+                  <option value="Foods">Foods</option>
+                  <option value="Housing">Housing</option>
+                  <option value="Transports">Transports</option>
+                  <option value="Healths">Healths</option>
+                  <option value="Insurances">Insurances</option>
+                  <option value="Child">Child</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+              <input type="date" id="adding-date" />
+              <div class="btn-style">
+                <button class="submit" id="add-amount">Add Amount</button>
+                <button class="submit" id="edit-amount">Edit Amount</button>
+                <button class="cancel" id="cancel">Cancel</button>
+              </div>
             </div>
-            <input type="date" id="adding-date" />
-            <div class="btn-style">
-              <button class="submit" id="add-amount">Add Amount</button>
-              <button class="submit" id="edit-amount">Edit Amount</button>
-              <button class="cancel" id="cancel">Cancel</button>
+            <!-- add a chart -->
+            <div class="chart-container">
+              <h3>Expenses chart</h3>
+              <canvas id="categoryChart"></canvas>
             </div>
           </div>
-        </div>
 
-        <!-- Output -->
-        <div class="output-container">
-          <div class="output-item">
-            <p>Total Expenses</p>
-            <span id="expenditure-value">0</span>
+          <!-- Output -->
+          <div class="output-container">
+            <div class="output-item">
+              <p>Total Expenses</p>
+              <span id="expenditure-value">0</span>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- List -->
-      <div class="list">
-        <h3>Expenses List</h3>
-        <input type="month" id="filter-month" />
-        <div class="list-container" id="list"></div>
+        <!-- List -->
+        <div class="list">
+          <h3>Expenses List</h3>
+          <input type="month" id="filter-month" />
+          <div class="list-container" id="list"></div>
+        </div>
       </div>
     </div>
     <!-- Script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
     <script>
       // Get today's date in YYYY-MM-DD format

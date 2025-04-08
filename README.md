@@ -1,4 +1,4 @@
-clone to the sitory
+clone to the repository
 
 ## Install dependencies:
 

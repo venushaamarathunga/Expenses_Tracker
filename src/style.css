@@ -11,7 +11,6 @@ body {
 .wrapper {
   width: 90%;
   font-size: 16px;
-  /* max-width: 43.75em; */
   margin: 1em auto;
 }
 
@@ -22,7 +21,10 @@ body {
 .sub-container {
   width: 100%;
   display: grid;
-  gap: 3em;
+  gap: 1.5em;
+  max-height: 400px;
+  overflow-y: auto;
+  grid-template-columns: 2fr 1fr;
 }
 
 .flex {
@@ -52,10 +54,10 @@ body {
   border-color: #587ef4;
 }
 
-.total-amount-container,
+.chart-container,
 .user-amount-container {
   background-color: #ffffff;
-  padding: 1.25em 0.9em;
+  padding: 0.8em;
   border-radius: 0.3em;
   box-shadow: 0 0.6em 1.2em rgba(28, 0, 80, 0.06);
 }
@@ -195,4 +197,7 @@ body {
     grid-template-columns: 1fr;
     gap: 1em;
   }
+}
+.chart-container canvas {
+  max-height: 250px;
 }

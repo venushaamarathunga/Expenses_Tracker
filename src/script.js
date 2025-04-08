@@ -120,6 +120,8 @@ addAmountButton.addEventListener("click", async () => {
   if (!userAmount.value || !productTitle.value || category.value == "" || !addingDate.value) {
     productTitleError.classList.remove("hide");
     return false;
+  } else {
+    productTitleError.classList.add("hide");
   }
 
   const product = {
@@ -175,6 +177,7 @@ const loadProducts = async (fromDate, toDate) => {
   });
 
   expenditureValue.innerText = totalExpenses;
+  drawCategoryChart(products);
 };
 
 // Load products on page load for current month
@@ -190,3 +193,59 @@ filterMonth.addEventListener("change", () => {
 
   window.onload = loadProducts(fromDate, toDate);
 });
+
+// add a chart
+let categoryChart;
+
+function drawCategoryChart(products) {
+  const categoryTotals = {};
+  let totalExpenses = 0;
+
+  products.forEach((p) => {
+    totalExpenses += parseFloat(p.amount);
+    if (categoryTotals[p.category]) {
+      categoryTotals[p.category] += parseFloat(p.amount);
+    } else {
+      categoryTotals[p.category] = parseFloat(p.amount);
+    }
+  });
+
+  const categories = Object.keys(categoryTotals);
+  const amounts = Object.values(categoryTotals);
+  const colors = categories.map(() => `hsl(${Math.random() * 360}, 70%, 60%)`);
+
+  const ctx = document.getElementById("categoryChart").getContext("2d");
+
+  if (categoryChart instanceof Chart) {
+    categoryChart.destroy();
+  }
+
+  categoryChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: categories.map((cat, i) => {
+        const percentage = ((amounts[i] / totalExpenses) * 100).toFixed(1);
+        return `${cat} - ${percentage}%`;
+      }),
+      datasets: [
+        {
+          data: amounts,
+          backgroundColor: colors,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "right",
+          labels: {
+            font: {
+              size: 16,
+            },
+          },
+        },
+      },
+    },
+  });
+}

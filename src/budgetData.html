@@ -12,40 +12,42 @@
   </head>
   <body>
     <div class="wrapper">
-      <a href="index.html" style="margin-bottom: 5em">Back</a>
-      <div class="container">
-        <div class="sub-container">
-          <!-- Expenditure List Filter -->
-          <div class="filter-container">
-            <h3>Filter Expenditure List</h3>
-            <p class="hide error" id="product-title-error">Values cannot be empty</p>
-            <div class="date-feild"><label>From </label><input type="date" id="from-date" /></div>
-            <div class="date-feild"><label>To </label><input type="date" id="to-date" /></div>
-            <button class="submit" id="get-expences">Filter</button>
+      <a style="margin-bottom: 2em; display: inline-block" href="index.html" style="margin-bottom: 5em">Back</a>
+      <div>
+        <div class="container">
+          <div class="sub-container">
+            <!-- Expenditure List Filter -->
+            <div class="filter-container">
+              <h3>Filter Expenditure List</h3>
+              <p class="hide error" id="product-title-error">Values cannot be empty</p>
+              <div class="date-feild"><label>From </label><input type="date" id="from-date" /></div>
+              <div class="date-feild"><label>To </label><input type="date" id="to-date" /></div>
+              <button class="submit" id="get-expences">Filter</button>
+            </div>
+          </div>
+
+          <!-- Output -->
+          <div class="output-container">
+            <div class="output-divide">
+              <p>From Date</p>
+              <span id="display-from-date">-</span>
+            </div>
+            <div class="output-divide">
+              <p>To Date</p>
+              <span id="display-to-date">-</span>
+            </div>
+            <div class="output-divide">
+              <p>Total Expenses</p>
+              <span id="expenditure-value">0</span>
+            </div>
           </div>
         </div>
 
-        <!-- Output -->
-        <div class="output-container">
-          <div class="output-divide">
-            <p>From Date</p>
-            <span id="display-from-date">-</span>
-          </div>
-          <div class="output-divide">
-            <p>To Date</p>
-            <span id="display-to-date">-</span>
-          </div>
-          <div class="output-divide">
-            <p>Total Expenses</p>
-            <span id="expenditure-value">0</span>
-          </div>
+        <!-- List -->
+        <div class="list">
+          <h3>Expense List</h3>
+          <div class="list-container" id="list"></div>
         </div>
-      </div>
-
-      <!-- List -->
-      <div class="list">
-        <h3>Expense List</h3>
-        <div class="list-container" id="list"></div>
       </div>
     </div>
 
