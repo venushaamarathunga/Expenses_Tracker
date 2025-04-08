@@ -4,11 +4,18 @@ let userAmount = document.getElementById("user-amount");
 let addingDate = document.getElementById("adding-date");
 const category = document.getElementById("category");
 const addAmountButton = document.getElementById("add-amount");
+const editAmountButton = document.getElementById("edit-amount");
+const cancelButton = document.getElementById("cancel");
 const productTitle = document.getElementById("product-title");
 const productTitleError = document.getElementById("product-title-error");
 const expenditureValue = document.getElementById("expenditure-value");
 const list = document.getElementById("list");
 const filterMonth = document.getElementById("filter-month");
+
+let now = new Date();
+let fromDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split("T")[0];
+let toDate = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split("T")[0];
+editAmountButton.style.display = "none";
 
 //Function To Create List
 const listCreator = (expenseName, expenseValue, category, addingDate, productId) => {
@@ -22,7 +29,7 @@ const listCreator = (expenseName, expenseValue, category, addingDate, productId)
   editButton.style.fontSize = "1.2em";
   editButton.addEventListener("click", () => {
     console.log("clicked Edit : ", productId);
-    modifyElement(editButton, true, productId);
+    editElement(editButton, true, productId);
   });
 
   let deleteButton = document.createElement("button");
@@ -37,7 +44,13 @@ const listCreator = (expenseName, expenseValue, category, addingDate, productId)
 };
 
 //Function To Modify List Elements
-const modifyElement = async (element, edit = false, productId) => {
+const editElement = async (element, edit = false, productId) => {
+  // Ensure that productId is valid
+  if (!productId) {
+    console.error("Invalid product ID");
+    return;
+  }
+
   let parentDiv = element.parentElement;
   let currentExpense = expenditureValue.innerText;
   let parentAmount = parentDiv.querySelector(".amount").innerText;
@@ -46,12 +59,14 @@ const modifyElement = async (element, edit = false, productId) => {
     let parentCategory = parentDiv.querySelector(".category").innerText;
     let parentText = parentDiv.querySelector(".product").innerText;
     let parentDate = parentDiv.querySelector(".date").innerText;
-    console.log("hello edit : ");
 
     productTitle.value = parentText;
     userAmount.value = parentAmount;
     addingDate.value = parentDate;
     category.value = parentCategory;
+
+    addAmountButton.style.display = "none";
+    editAmountButton.style.display = "block";
 
     disableButtons(true);
   }
@@ -59,21 +74,31 @@ const modifyElement = async (element, edit = false, productId) => {
   expenditureValue.innerText = parseInt(currentExpense) - parseInt(parentAmount);
   parentDiv.remove();
 
-  const updatedProduct = {
-    id: productId,
-    productName: productTitle.value,
-    amount: parseFloat(userAmount.value),
-    category: category.value,
-    date: addingDate.value,
-  };
+  editAmountButton.addEventListener("click", async () => {
+    const updatedProduct = {
+      id: productId,
+      productName: productTitle.value,
+      amount: parseFloat(userAmount.value),
+      category: category.value,
+      date: addingDate.value,
+    };
 
-  const result = await ipcRenderer.invoke("edit-product", updatedProduct);
-  if (result.success) {
-    alert("Product updated successfully!");
-    loadProducts(); // Reload products after editing
-  } else {
-    alert("Failed to update product.");
-  }
+    const result = await ipcRenderer.invoke("edit-product", updatedProduct);
+
+    if (result.success) {
+      alert("Product updated successfully!");
+      loadProducts(fromDate, toDate);
+
+      productTitle.value = "";
+      userAmount.value = "";
+      category.value = "";
+      addingDate.value = new Date().toISOString().split("T")[0];
+      addAmountButton.style.display = "block";
+      editAmountButton.style.display = "none";
+    } else {
+      alert("Failed to update product.");
+    }
+  });
 };
 
 // Function to delete list item (delete)
@@ -108,10 +133,25 @@ addAmountButton.addEventListener("click", async () => {
 
   if (result.success) {
     alert("Product added successfully!");
-    loadProducts();
+    loadProducts(fromDate, toDate);
+
+    productTitle.value = "";
+    userAmount.value = "";
+    category.value = "";
+    addingDate.value = new Date().toISOString().split("T")[0];
   } else {
     alert("Failed to save product!");
   }
+});
+
+cancelButton.addEventListener("click", () => {
+  productTitle.value = "";
+  userAmount.value = "";
+  category.value = "";
+  addingDate.value = new Date().toISOString().split("T")[0];
+  editAmountButton.style.display = "none";
+  addAmountButton.style.display = "block";
+  loadProducts(fromDate, toDate);
 });
 
 //Function To Disable Edit and Delete Button
@@ -127,7 +167,7 @@ const loadProducts = async (fromDate, toDate) => {
   const products = await ipcRenderer.invoke("get-products", { fromDate, toDate });
 
   let totalExpenses = 0;
-  list.innerHTML = ""; // Clear existing list
+  list.innerHTML = "";
 
   products.forEach((product) => {
     listCreator(product.productName, product.amount, product.category, product.date, product.id);
@@ -139,9 +179,6 @@ const loadProducts = async (fromDate, toDate) => {
 
 // Load products on page load for current month
 window.onload = () => {
-  const now = new Date();
-  const fromDate = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split("T")[0];
-  const toDate = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split("T")[0];
   loadProducts(fromDate, toDate);
 };
 

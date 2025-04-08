@@ -26,14 +26,17 @@ function addProduct(product) {
   product.id = uuidv4();
   db.products.push(product);
   writeDB(db);
+  return product;
 }
 
 function editProduct(updatedProduct) {
   const db = readDB();
+
   const index = db.products.findIndex((p) => p.id === updatedProduct.id);
 
   if (index !== -1) {
     db.products[index] = updatedProduct;
+
     writeDB(db);
     return { success: true };
   } else {

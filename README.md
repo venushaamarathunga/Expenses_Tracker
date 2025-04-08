@@ -1,7 +1,9 @@
-clone to the repo
+clone to the sitory
 
-npm install
-**npm install**
+## Install dependencies:
 
-run project
-**npx electron .**
+`npm install`
+
+## Run project
+
+`npx electron .`

@@ -1,10 +1,16 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const { addProduct, editProduct, deleteProduct, getSelectedFilterProducts } = require("./db");
 
+require("electron-reload")(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
+
 const createWindow = () => {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
   const win = new BrowserWindow({
-    width: "80vw",
-    height: "60vw",
+    width: Math.floor(width * 0.8),
+    height: Math.floor(height * 0.6),
     webPreferences: {
       nodeIntegration: true, // TEMP: Allow using require() in renderer
       contextIsolation: false,
@@ -18,10 +24,6 @@ const createWindow = () => {
     win.loadFile("src/budgetData.html");
   });
 };
-
-require("electron-reload")(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
 
 app.whenReady().then(() => {
   createWindow();
@@ -47,9 +49,9 @@ ipcMain.handle("add-product", (event, product) => {
   }
 });
 
-ipcMain.handle("edit-product", (event, updatedProduct) => {
+ipcMain.handle("edit-product", async (event, updatedProduct) => {
   try {
-    const success = editProduct(updatedProduct);
+    const success = await editProduct(updatedProduct);
     return { success };
   } catch (err) {
     console.error("Failed to edit product:", err);
@@ -68,7 +70,5 @@ ipcMain.handle("delete-product", (event, productId) => {
 });
 
 ipcMain.handle("get-products", async (event, { fromDate, toDate }) => {
-  console.log("fromDate : ", fromDate);
-
   return getSelectedFilterProducts(fromDate, toDate);
 });

@@ -11,7 +11,7 @@ body {
 .wrapper {
   width: 90%;
   font-size: 16px;
-  max-width: 43.75em;
+  /* max-width: 43.75em; */
   margin: 1em auto;
 }
 
@@ -86,13 +86,30 @@ body {
   color: #e5e5e5;
 }
 
+.btn-style {
+  display: flex;
+  justify-content: flex-start; /* or use gap if you prefer */
+  align-items: center;
+  margin-top: 0.8em;
+  gap: 1em;
+}
+
 .submit {
   font-size: 1em;
-  margin-top: 0.8em;
   background-color: #587ef4;
   border: none;
   outline: none;
   color: #ffffff;
+  padding: 0.6em 1.2em;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.cancel {
+  font-size: 1em;
+  background: transparent;
+  border: 1px solid rgb(244, 10, 10);
+  color: rgb(244, 10, 10);
   padding: 0.6em 1.2em;
   border-radius: 0.3em;
   cursor: pointer;

@@ -25,23 +25,26 @@
               <label for="category">Category :</label>
               <select name="category" id="category">
                 <option value=""></option>
-                <option value="foods">Foods</option>
-                <option value="houseing">Housing</option>
-                <option value="transports">Transport</option>
-                <option value="healths">Health</option>
-                <option value="insurances">Insurance</option>
-                <option value="child">Child</option>
-                <option value="others">Others</option>
+                <option value="Foods">Foods</option>
+                <option value="Housing">Housing</option>
+                <option value="Transports">Transports</option>
+                <option value="Healths">Healths</option>
+                <option value="Insurances">Insurances</option>
+                <option value="Child">Child</option>
+                <option value="Others">Others</option>
               </select>
             </div>
             <input type="date" id="adding-date" />
-            <button class="submit" id="add-amount">Add Amount</button>
+            <div class="btn-style">
+              <button class="submit" id="add-amount">Add Amount</button>
+              <button class="submit" id="edit-amount">Edit Amount</button>
+              <button class="cancel" id="cancel">Cancel</button>
+            </div>
           </div>
         </div>
 
         <!-- Output -->
         <div class="output-container">
-          <!-- add a Expenses List month  -->
           <div class="output-item">
             <p>Total Expenses</p>
             <span id="expenditure-value">0</span>

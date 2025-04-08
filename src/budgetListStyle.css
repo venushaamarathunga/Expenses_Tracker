@@ -11,7 +11,6 @@ body {
 .wrapper {
   width: 90%;
   font-size: 16px;
-  max-width: 43.75em;
   margin: 1em auto;
 }
 .container {
@@ -19,6 +18,7 @@ body {
 }
 .sub-container {
   width: 100%;
+  max-width: 25em;
   display: grid;
   gap: 3em;
 }
@@ -46,6 +46,9 @@ body {
   padding: 1.25em 0.9em;
   border-radius: 0.3em;
   box-shadow: 0 0.6em 1.2em rgba(28, 0, 80, 0.06);
+}
+.filter-container label {
+  min-width: 5em;
 }
 .output-container {
   background-color: #587ef4;
@@ -109,6 +112,13 @@ body {
   display: grid;
   grid-template-columns: 3fr 2fr 2fr 2fr;
 }
+
+.date-feild {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 @media screen and (max-width: 600px) {
   .wrapper {
     font-size: 14px;
