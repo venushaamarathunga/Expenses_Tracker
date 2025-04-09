@@ -1,9 +1,15 @@
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const { addProduct, editProduct, deleteProduct, getSelectedFilterProducts } = require("./db");
 
-require("electron-reload")(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
+if (process.env.NODE_ENV !== "production") {
+  try {
+    require("electron-reload")(__dirname, {
+      electron: require(`${__dirname}/node_modules/electron`),
+    });
+  } catch (err) {
+    console.warn("electron-reload not found (expected in dev only). Skipping reload setup.");
+  }
+}
 
 const createWindow = () => {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;

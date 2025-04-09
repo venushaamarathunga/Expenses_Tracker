@@ -3,7 +3,7 @@ const path = require("path");
 const { app } = require("electron");
 const { v4: uuidv4 } = require("uuid");
 
-const dbPath = path.join(app.getPath("downloads"), "db.json");
+const dbPath = path.join(app.getPath("userData"), "db.json");
 
 function initDB() {
   if (!fs.existsSync(dbPath)) {
@@ -58,7 +58,7 @@ function deleteProduct(productId) {
 }
 
 function getSelectedFilterProducts(fromDate, toDate) {
-  const data = fs.readFileSync(path.join(app.getPath("downloads"), "db.json"), "utf8");
+  const data = fs.readFileSync(path.join(app.getPath("userData"), "db.json"), "utf8");
   const products = JSON.parse(data).products || [];
 
   if (!fromDate || !toDate) return products;
